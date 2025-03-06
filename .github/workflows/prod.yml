@@ -14,7 +14,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       environment: 'production'
-      app-name: 'your-webapp-name'  # Replace with your Azure Web App name
+      app-name: 'ng17Test'  # Replace with your Azure Web App name
       slot-name: 'production'  # Optional, defaults to production
       artifact-name: ${{ needs.build.outputs.artifact_name }}
     secrets: inherit
