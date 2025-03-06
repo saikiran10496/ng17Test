@@ -1,4 +1,4 @@
-name: Deploy to Azure Static Web App
+name: Deploy Angular App to Azure Web App
 on:
   workflow_call:
     inputs:
@@ -6,6 +6,15 @@ on:
         required: true
         type: string
         description: "The environment to deploy to (e.g., dev, qa, prod)"
+      app-name:
+        required: true
+        type: string
+        description: "The name of the Azure Web App"
+      slot-name:
+        required: false
+        type: string
+        description: "The slot name to deploy to (optional)"
+        default: "production"
       artifact-name:
         required: true
         type: string
@@ -21,14 +30,17 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.artifact-name }}
-          path: dist/ng17-test/browser
+          path: dist
       
-      - name: Deploy to Azure Static Web App
-        id: deploy
-        uses: Azure/static-web-apps-deploy@v1
+      - name: Azure Login
+        uses: azure/login@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PROUD_SEA_0C5BD660F }}
-          action: "upload"
-          app_location: "dist/ng17-test/browser"
-          api_location: ""
-          skip_app_build: true
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ inputs.app-name }}
+          slot-name: ${{ inputs.slot-name }}
+          package: dist
