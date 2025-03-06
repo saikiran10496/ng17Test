@@ -3,18 +3,13 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
-    branches:
-      - main
 
 jobs:
   build:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     uses: ./.github/workflows/build.yml
     secrets: inherit
 
   deploy:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    needs: build
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
