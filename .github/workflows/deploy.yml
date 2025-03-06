@@ -1,24 +1,34 @@
-name: Deploy Azure Static Web App
+name: Deploy to Azure Static Web App
 on:
   workflow_call:
-
+    inputs:
+      environment:
+        required: true
+        type: string
+        description: "The environment to deploy to (e.g., dev, qa, prod)"
+      artifact-name:
+        required: true
+        type: string
+        description: "The name of the artifact to download"
 jobs:
-  deploy_job:
+  deploy:
     runs-on: ubuntu-latest
-    name: Deploy Job
+    environment:
+      name: ${{ inputs.environment }}
+    
     steps:
-      - uses: actions/checkout@v3
+      - name: Download artifact
+        uses: actions/download-artifact@v4
         with:
-          submodules: true
-          lfs: false
-          
-      - name: Deploy
+          name: ${{ inputs.artifact-name }}
+          path: dist/ng17-test/browser
+      
+      - name: Deploy to Azure Static Web App
         id: deploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PROUD_SEA_0C5BD660F }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "."
+          app_location: "dist/ng17-test/browser"
           api_location: ""
-          output_location: "dist/ng17-test/browser"
+          skip_app_build: true
