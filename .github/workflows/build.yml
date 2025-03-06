@@ -1,4 +1,4 @@
-name: Build Azure Static Web App
+name: Build Angular App
 on:
   workflow_call:
     outputs:
@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      artifact_name: "static-web-app-${{ github.run_id }}"
+      artifact_name: "angular-app-${{ github.run_id }}"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -31,5 +31,5 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: "static-web-app-${{ github.run_id }}"
+          name: "angular-app-${{ github.run_id }}"
           path: dist/ng17-test/browser/
