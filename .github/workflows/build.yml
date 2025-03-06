@@ -22,4 +22,4 @@ jobs:
           app_location: "."
           api_location: ""
           output_location: "dist/ng17-test/browser"
-          skip_deploy_on_missing_secrets: true
+          # skip_deploy_on_missing_secrets: true
