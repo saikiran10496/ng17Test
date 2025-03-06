@@ -43,6 +43,7 @@ jobs:
           app_location: "." # Root directory where angular.json exists
           api_location: ""  # No API
           output_location: "dist/ng17-test" # Ensure this matches angular.json outputPath
+          github_id_token: ${{ steps.idtoken.outputs.result }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
