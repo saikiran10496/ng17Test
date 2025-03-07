@@ -15,10 +15,6 @@ on:
         type: string
         description: "The slot name to deploy to (optional)"
         default: "production"
-      artifact-name:
-        required: true
-        type: string
-        description: "The name of the artifact to download"
 jobs:
   deploy:
     runs-on: windows-latest
