@@ -29,7 +29,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: ${{ inputs.artifact-name }}
+          name: angular-app-${{ github.run_id }}
           path: dist
       
       - name: Azure Login
