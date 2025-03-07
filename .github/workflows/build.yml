@@ -1,4 +1,4 @@
-name: Build Angular App1
+name: Build Angular App
 on:
   workflow_call:
     outputs:
