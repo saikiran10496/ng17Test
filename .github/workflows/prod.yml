@@ -16,5 +16,5 @@ jobs:
       environment: 'production'
       app-name: 'ng17Test'  # Replace with your Azure Web App name
       # slot-name: 'production'  # Optional, defaults to production
-      artifact-name: ${{ needs.build.outputs.artifact_name }}
+      # artifact-name: ${{ needs.build.outputs.artifact_name }}
     secrets: inherit
